@@ -1,0 +1,79 @@
+# Linux file system :::::::::::::::::::::::::
+
+/			= root directory, Top of the filesystem hierarchy. Every other directory starts here.
+
+/bin			= Essential binaries – Commands like ls, cp, mv, bash used during boot.
+
+/sbin			= System binaries – Administrative tools like fsck, reboot, ifconfig.
+
+/usr			= User programs – Contains user-level applications and utilities.
+
+/usr/bin		= Common user commands (e.g., nano, python).
+
+/usr/sbin		= Non-essential system binaries (e.g., apache2, sshd).
+
+/lib			= Shared libraries needed for binaries in /bin and /sbin.
+
+/usr/lib		= Libraries for programs in /usr/bin and /usr/sbin.
+
+/etc			= Configuration files – System-wide settings (e.g., /etc/passwd, /etc/hostname).
+
+/etc/passwd		= Stores user account info (but not passwords).
+
+/etc/shadow		= Stores hashed user passwords.
+
+/etc/fstab		= Disk mount info – used during boot to mount drives.
+
+/etc/hosts		= Static hostname to IP address mapping.
+
+/etc/resolv.conf	= DNS resolver configuration.
+
+/etc/hostname		= Contains the system’s hostname.
+
+/etc/profile		= Global environment settings for all users.
+
+/home			= User directories – Each user gets a folder (/home/alice, /home/bob).
+
+/root			= Home directory for root user. Not to be confused with /.
+
+/var			= Variable data – Logs, spools, caches (e.g., /var/log).
+
+/var/log		= System log files 
+
+/tmp			= Temporary files
+
+/opt			= Optional software – Manually installed software lives here.
+
+/media			= Removable media – USB drives, CDs, etc. auto-mounted here.
+
+/mnt			= Temporary mount point – Used for mounting filesystems manually.
+
+/dev			= Device files – Represents hardware (e.g., /dev/sda)
+
+/proc			= Virtual filesystem – Real-time system info (e.g., CPU, RAM, processes).
+
+/proc/cpuinfo		= Info about CPU.
+
+/proc/meminfo		= Info about MEMORY
+
+/sys			= Interface to kernel – For tweaking devices and kernel modules.
+
+/boot			= Kernel files and bootloader configs (e.g., vmlinuz, grub/).
+
+/run			= Runtime variable data – PID files, sockets (cleared on boot).
+
+/srv			= Data served by services (e.g., web or FTP).
+
+/lost+found		= Recovered files after filesystem errors (ext* filesystems).
+
+# Special Files :::::::::::::::::::::::::
+
+/etc/bashrc		= Global shell settings (bash shell).
+
+/etc/bash.bashrc	= Global shell settings (bash shell).
+
+~/.bashrc		= User’s shell config – Aliases, PATH, prompts.
+
+~/.profile		= User's login shell settings.
+
+~/.ssh/authorized_keys	= SSH public keys allowed to connect.
