@@ -1,0 +1,124 @@
+switch on/off ===> server ===> CPU ===> BIOS ===> MBR ===> GRUB ===> Kernel ===> systemd
+
+# what is BIOS
+
+BIOS stands for Basic Input/Output System.
+It is firmware stored on a chip on the motherboard of computer.
+BIOS is the first software that runs when you power on a computer.
+
+Its main role is to:
+
+Initialize hardware (CPU, RAM, keyboard, disks, etc.)
+Perform POST (Power-On Self-Test) – checks if hardware is working properly
+Load the bootloader from the boot device (like GRUB for Linux)
+Pass control to the operating system
+
+[Power ON]
+     ↓
+[BIOS Starts]
+     ↓
+[POST Check]
+     ↓
+[Find Boot Device]
+     ↓
+[Load Bootloader (e.g., GRUB)]
+     ↓
+[Boot OS (Linux, Windows)]
+
+
+# what is MBR?
+
+MBR stands for Master Boot Record. 
+It is the first sector (512 bytes) of a storage device (like HDD or SSD).
+It is used to boot the system.
+
+The MBR's main job is to:
+
+Store bootloader code to start the operating system.
+Hold the partition table — the layout of the disk.
+
+[Power ON]
+    ↓
+[BIOS/UEFI starts]
+    ↓
+[BIOS finds Boot Device]
+    ↓
+[Reads MBR (first 512 bytes)]
+    ↓
+[Executes Bootloader code from MBR]
+    ↓
+[Bootloader loads OS (Linux/Windows)]
+
+
+# What is GRUB?
+
+GRUB stands for GRand Unified Bootloader.
+It is the bootloader used by most Linux distributions to load the operating system.
+GRUB acts as the middleman between the BIOS/UEFI and the Linux kernel.
+
+Its job is to:
+
+Locate and load the kernel from the disk
+Allow you to choose between multiple OSes (dual-boot)
+Let you pass parameters to the kernel (e.g., recovery mode)
+Finds the kernel (vmlinuz) and initrd (initial ramdisk), and loads them on kernel
+Reads settings from /boot/grub/grub.cfg
+
+[Power ON]
+    ↓
+[BIOS/UEFI]
+    ↓
+[MBR or EFI Partition loads GRUB]
+    ↓
+[GRUB loads Kernel & initrd]
+    ↓
+[Linux Kernel boots the OS]
+
+#GRUB File Structure
+
+/boot/grub/grub.cfg		=	Main configuration file
+/boot/vmlinuz-*			=	Kernel image
+/boot/initrd.img-*		=	Initial RAM disk
+/etc/default/grub		=	Default settings, edited by user
+/boot/grub/			=	GRUB stage files and modules
+
+
+# What is kernel?
+
+The Kernel is the core component of the Linux operating system.
+It acts as a bridge between your computer's hardware and software.
+kernel is loaded in to read only mode
+
+# Use the Kernel
+
+To control hardware (CPU, memory, devices)
+To manage system resources
+To allow multiple programs to run safely at the same time
+To provide low-level interfaces for software applications
+Schedules and runs multiple programs (processes)
+Controls RAM usage between applications
+Provides access to disk and filesystems
+Controls user access to system resources
+Handles internet and local network communication
+
+[BIOS/UEFI]
+   ↓
+[Bootloader (GRUB)]
+   ↓
+[Kernel (vmlinuz)]
+   ↓
+[initramfs/init → /sbin/init → OS boots fully]
+
+# Types of Kernels 
+
+Monolithic	=	One large process handling everything (used by Linux)
+Microkernel	=	Only core functions in kernel, rest in user space (used by Minix)
+Hybrid		=	Mix of both (used by Windows, macOS)
+
+# Kernel File Location
+
+/boot/vmlinuz-*					 → The compressed Linux kernel image
+
+/boot/initrd.img-* or /boot/initramfs-*		 → Temporary file systems loaded by the kernel
+
+/lib/modules/$(uname -r)/			 → Kernel modules for your current kernel version
