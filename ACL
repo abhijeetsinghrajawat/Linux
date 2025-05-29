@@ -1,0 +1,53 @@
+#What is ACL :::::::::::::::::::::::::::::::
+
+ACL stands for Access Control List.
+It provides fine-grained permission control for files and directories beyond the standard user-group-other model in Linux.
+
+# Why Use ACL When We Have chmod, chown, and chgrp?
+
+Standard Linux permissions let us define access for:
+
+Owner (user)
+Group
+Others (everyone else)
+
+But we can only assign one user and one group per file this way.
+
+➡️ ACL allows to give different permissions to multiple users or groups on the same file or folder — something chmod alone can’t do.
+
+Example => 
+project.txt
+owner: alice
+group: devs
+
+Now we want:
+
+bob to read
+carol to read and write
+dave to have no access
+
+With Standard Permissions:
+Not possible. we will need to constantly change owners or create multiple copies.
+
+With ACL:
+setfacl -m u:bob:r-- project.txt
+setfacl -m u:carol:rw- project.txt
+setfacl -m u:dave:--- project.txt
+
+# ACL commands
+
+| Command                                     | Use                     |
+| ------------------------------------------- | ----------------------- |
+| `getfacl <file>`                            | View ACLs on a file     |
+| `setfacl -m u:username:permissions <file>`  | Modify ACL for user     |
+| `setfacl -m g:groupname:permissions <file>` | Modify ACL for group    |
+| `setfacl -x u:username <file>`              | Remove ACL for user     |
+| `setfacl -b <file>`                         | Remove all ACLs (reset) |
+
+
+#How It Works (Behind the Scenes)
+
+Files with ACLs are marked with a + at the end of the permission string:
+-rw-r--r--+ 1 alice devs 1234 May 18 project.txt
+
+ACL metadata is stored in the filesystem, assuming it supports ACL (e.g., ext4, XFS).
