@@ -1,4 +1,4 @@
-switch on/off ===> server ===> CPU ===> BIOS ===> MBR ===> GRUB ===> Kernel ===> systemd
+\switch on/off ===> server ===> CPU ===> BIOS ===> MBR ===> GRUB ===> Kernel ===> systemd
 
 # what is BIOS
 
@@ -122,3 +122,27 @@ Hybrid		=	Mix of both (used by Windows, macOS)
 /boot/initrd.img-* or /boot/initramfs-*		 → Temporary file systems loaded by the kernel
 
 /lib/modules/$(uname -r)/			 → Kernel modules for your current kernel version
+
+
+# what is SystemD?
+
+systemd is the default system and service manager used by most modern Linux distributions (like Ubuntu, Fedora, CentOS, Debian).
+It is the first process (PID 1) started by the Linux kernel after boot, replacing the older init system (SysVinit, Upstart).
+
+# Use systemd
+
+To boot the system quickly
+To manage services and daemons
+To control system startup, shutdown, and target states
+To manage logging, network, and devices
+Boots services in parallel for faster startup
+Integrates with journald for system logs
+Manages network interfaces via systemd-networkd
+Manages mount points and devices (.mount units)
+
+#  Key Files and Directories
+
+/etc/systemd/system/		=	Custom unit files
+/lib/systemd/system/		=	Default unit files
+/etc/systemd/journald.conf	=	Journal log config
+/etc/systemd/logind.conf	=	Login/session settings
