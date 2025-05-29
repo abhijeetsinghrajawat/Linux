@@ -1,3 +1,45 @@
+# Types of file syaytem :::::::::::::::::::
+
+1. ext3
+2. ext4
+3. XFS (use in ubuntu, centos, redhat, fedora)
+4. BtrFS (B-tree FS) [use in openSUSE and SUSE linux enterprise server]
+5. Fat
+
+# Check linux file system:::::::::::::::::::::
+
+1. lsblk
+2. df -Th
+3. cat /etc/fstab
+
+# What is inodes
+
+An inode is like a file's identity card, storing all information about the file except its name and actual content. In linux every file and directory have a unique number.
+
+Ex - "ls -li"
+
+# Types of files in linux:::::::::::::::::::::::::
+
+-	= Regular files
+
+d	= Directory
+
+l	= link
+
+c	= Device file
+
+s	= Socket
+
+p	= FIFO or named pipe
+
+b	= Block device
+
+Socket file	= Special file to enablecommunication between two processes. basically these are inside /run folder.
+
+FIFO or Named-pipe	= send data from one process to another so that the recieving precess reads the data first-in-first-out manner, can be created using mkfifo command.
+
+Block Device	= A file that refers to a device.
+
 # Linux file system :::::::::::::::::::::::::
 
 /			= root directory, Top of the filesystem hierarchy. Every other directory starts here.
@@ -16,7 +58,7 @@
 
 /usr/lib		= Libraries for programs in /usr/bin and /usr/sbin.
 
-/etc			= Configuration files – System-wide settings (e.g., /etc/passwd, /etc/hostname).
+/etc			= Holds System Configuration files – (e.g.User, Network, services, SystemApps, /etc/passwd, /etc/hostname).
 
 /etc/passwd		= Stores user account info (but not passwords).
 
@@ -32,9 +74,9 @@
 
 /etc/profile		= Global environment settings for all users.
 
-/home			= User directories – Each user gets a folder (/home/alice, /home/bob).
+/home			= Contains the personal User directories – Each user gets a folder (/home/alice, /home/bob).
 
-/root			= Home directory for root user. Not to be confused with /.
+/root			= Home directory for root user(Administrator). Not to be confused with /.
 
 /var			= Variable data – Logs, spools, caches (e.g., /var/log).
 
