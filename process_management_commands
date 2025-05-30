@@ -1,0 +1,77 @@
+# Viewing Processes:::::::::::::::
+
+| Command  | Description                           | Example            |
+| -------- | ------------------------------------- | ------------------ |
+| `ps`     | Shows running processes               | `ps aux`, `ps -ef` |
+| `top`    | Real-time process viewer              | `top`              |
+| `htop`   | Interactive process viewer (advanced) | `htop`             |
+| `pidof`  | Gets the PID of a process             | `pidof apache2`    |
+| `pgrep`  | Finds processes by name               | `pgrep nginx`      |
+| `pstree` | Displays processes as a tree          | `pstree`           |
+
+# Starting Processes::::::::::::
+
+| Command         | Description                          | Example                      |
+| --------------- | ------------------------------------ | ---------------------------- |
+| `&` (ampersand) | Runs a process in the background     | `./script.sh &`              |
+| `nohup`         | Runs a command immune to hangups     | `nohup ./longtask.sh &`      |
+| `nice`          | Starts a process with a set priority | `nice -n 10 ./heavy_task.sh` |
+| `setsid`        | Runs a program in a new session      | `setsid ./script.sh`         |
+
+# Monitoring and Inspecting Processes::::::::::::::::::::
+
+| Command  | Description                      | Example            |               |
+| -------- | -------------------------------- | ------------------ | ------------- |
+| `ps`     | Lists all processes              | \`ps aux           | grep apache\` |
+| `top`    | Dynamic real-time process list   | `top`              |               |
+| `htop`   | Interactive process manager      | `htop`             |               |
+| `watch`  | Periodically runs a command      | `watch -n 1 df -h` |               |
+| `lsof`   | Lists open files by processes    | `lsof -i :80`      |               |
+| `strace` | Traces system calls of a process | `strace -p 1234`   |               |
+
+# Killing and Stopping Processes:::::::::::::::::::
+
+| Command   | Description                       | Example                |
+| --------- | --------------------------------- | ---------------------- |
+| `kill`    | Sends signal to terminate process | `kill -9 1234`         |
+| `killall` | Kills all processes by name       | `killall apache2`      |
+| `pkill`   | Kills process by name pattern     | `pkill -f myscript.py` |
+| `xkill`   | Click to kill GUI app             | `xkill`                |
+
+# Foreground/Background Process Control:::::::::::::
+
+| Command  | Description                         | Example |
+| -------- | ----------------------------------- | ------- |
+| `fg`     | Brings background job to foreground | `fg %1` |
+| `bg`     | Resumes a job in background         | `bg %1` |
+| `jobs`   | Lists background jobs               | `jobs`  |
+| `Ctrl+Z` | Suspend current foreground job      | —       |
+| `Ctrl+C` | Kill the foreground process         | —       |
+
+
+# Priority & Scheduling::::::::::::::::::::::::::
+
+| Command     | Description                            | Example                   |
+| ----------- | -------------------------------------- | ------------------------- |
+| `nice`      | Start a process with priority          | `nice -n 5 ./mytask`      |
+| `renice`    | Change priority of a running process   | `renice -n 10 -p 1234`    |
+| `schedtool` | Set CPU affinity and scheduling policy | `schedtool -R -p 50 1234` |
+| `taskset`   | Sets CPU affinity of a process         | `taskset -c 0,1 ./binary` |
+
+# Pausing & Resuming:::::::::::::::::::
+
+| Command      | Description              | Example           |
+| ------------ | ------------------------ | ----------------- |
+| `kill -STOP` | Pauses a process         | `kill -STOP 1234` |
+| `kill -CONT` | Resumes a paused process | `kill -CONT 1234` |
+
+# Common Signals Used with kill
+
+| Signal | Number | Description          |
+| ------ | ------ | -------------------- |
+| `TERM` | 15     | Graceful termination |
+| `KILL` | 9      | Forceful kill        |
+| `HUP`  | 1      | Reload process       |
+| `STOP` | 19     | Pause (freeze)       |
+| `CONT` | 18     | Continue (resume)    |
+
