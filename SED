@@ -1,0 +1,86 @@
+# what is SED
+
+sed stands for Stream Editor. 
+It's a command-line tool used to parse, transform, and edit text in a stream or file, without opening it in a text editor.
+It's non-interactive, meaning it processes text automatically, often used in scripts, pipelines, and batch processing.
+
+# Why We Use sed
+
+Search and replace text in files or input streams
+Delete or insert lines
+Edit multiple files in batch
+Use in automated scripts
+Perform complex text transformations
+
+# EXAMPLE::::::::::::::::::::::::::::::
+
+sed [options] 'command' filename
+
+1.  Substitute (s)
+sed 's/apple/orange/' file.txt
+➡ Replaces first occurrence of “apple” with “orange” in each line.
+
+Replaces all occurrences per line (g = global).
+sed 's/apple/orange/g' file.txt
+
+Replaces all and modifies the file in-place (-i = in-place).
+sed -i 's/apple/orange/g' file.txt
+
+2. Delete (d)
+➡ Deletes all lines containing the word “error”.
+sed '/error/d' file.txt
+
+3. Print (p)
+➡ Prints only lines that contain “error”.
+
+4. Insert a Line Before a Pattern
+➡ Inserts text before the line containing "Error".
+sed '/Error/i\This is inserted above error line' file.txt
+ 
+5. Append a Line After a Pattern
+sed '/Error/a\This is added after error line' file.txt
+
+6. Replace Only on a Specific Line
+➡ Replace on line 2 only.
+sed '2s/old/new/' file.txt
+
+7. Multiple Commands
+➡ Replace foo with bar and delete lines with baz.
+sed -e 's/foo/bar/' -e '/baz/d' file.txt
+
+# Using Ranges
+
+Delete lines from 3 to 6:
+sed '3,6d' file.txt
+
+Replace in a Shell Script
+➡ Useful in CI/CD or deployment pipelines to adjust config files dynamically.
+#!/bin/bash
+sed -i 's/PORT=8080/PORT=9090/' config.env
+
+# Useful sed Options
+
+| Option | Description                                 |
+| ------ | ------------------------------------------- |
+| `-n`   | Suppress automatic printing (used with `p`) |
+| `-i`   | Edit file in-place                          |
+| `-e`   | Add multiple expressions                    |
+| `-r`   | Use extended regex (like `+`, `{}`)         |
+
+
+# Real-World Use Case
+
+Task: Change all instances of http to https in multiple .html files.
+sed -i 's/http:/https:/g' *.html
+
+# summary
+
+| Task                      | `sed` Command Example       |
+| ------------------------- | --------------------------- |
+| Replace word              | `sed 's/old/new/' file`     |
+| Replace globally          | `sed 's/old/new/g' file`    |
+| Replace in-place          | `sed -i 's/old/new/g' file` |
+| Delete lines              | `sed '/pattern/d' file`     |
+| Print matching lines only | `sed -n '/pattern/p' file`  |
+| Edit specific line        | `sed '5s/old/new/' file`    |
+
