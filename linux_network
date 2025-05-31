@@ -1,0 +1,66 @@
+# Ping
+
+ping is a network diagnostic tool used to test the reachability of a host (IP address or domain) on an IP network and measure the round-trip time for messages sent from the origin to the destination.
+
+Check if a server or device is online.
+Measure network latency (delay).
+Detect packet loss or network issues.
+Verify DNS resolution (for domain names).
+
+ex - ping google.com
+
+| Command                                  | Description                                                                    |
+| ---------------------------------------- | ------------------------------------------------------------------------------ |
+| `ping google.com`                        | Checks connectivity to Google. Runs indefinitely until you stop it (`Ctrl+C`). |
+| `ping -c 4 8.8.8.8`                      | Sends 4 ICMP echo requests to Google’s public DNS.                             |
+| `ping -i 2 example.com`                  | Sends pings every 2 seconds instead of default 1 sec.                          |
+| `ping -s 1000 8.8.8.8`                   | Sends a ping with a packet size of 1000 bytes.                                 |
+| `ping -t 10 8.8.8.8` *(on some systems)* | Pings for 10 seconds and stops (not supported on all Linux distros).           |
+
+
+# Natstat
+
+netstat (short for network statistics) is a command-line tool used in Linux to display network connections, routing tables, interface statistics, masquerade connections, and multicast memberships.
+
+To diagnose network issues
+To check which ports are open
+To view active TCP/UDP connections
+To see which services are listening on which ports
+To monitor network interface statistics
+
+EX - netstat [options]
+
+| Command         | Description                                                         |
+| --------------- | ------------------------------------------------------------------- |
+| `netstat -tuln` | Lists all **listening** TCP/UDP ports without resolving names.      |
+| `netstat -an`   | Shows all active connections and listening ports.                   |
+| `netstat -plnt` | Shows listening TCP ports with associated **PID** and program name. |
+| `netstat -r`    | Displays the **kernel routing table**.                              |
+| `netstat -i`    | Displays network **interface statistics**.                          |
+| `netstat -s`    | Shows **network statistics** (packets sent/received, errors, etc).  |
+| `netstat -g`    | Shows **multicast group membership**.                               |
+
+
+# TraceRoute
+
+traceroute is a network diagnostic tool.
+it is used to trace the path that a packet takes from source h>
+It shows each hop (router) the packet travels through and how >
+
+#use 
+
+To diagnose network delays or failures
+To identify where in the network path packets are being droppe>
+To check the routing path from source to destination
+To troubleshoot connectivity issues
+
+# Where We Use It
+
+Network administration and troubleshooting
+Identifying latency in a network path
+Checking route changes during outages
+Verifying ISP routing behavior
+
+Ex - traceroute google.com
+
+
