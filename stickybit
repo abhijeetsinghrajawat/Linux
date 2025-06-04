@@ -1,0 +1,103 @@
+# what is stickybit ::::::::::::::::
+
+The Sticky Bit is a special permission used on directories to control who can delete or rename files within them.
+
+# Why We Use Sticky Bit
+
+Normally, in a directory where many users have write access (like /tmp), any user could delete any file — even if the file wasn’t theirs.
+With Sticky Bit enabled, only:
+
+The file owner, or
+The directory owner, or
+The root user
+
+can delete or rename files inside that directory.
+
+# Where we use it:::::::::::::;;;;;
+
+/tmp directory
+ls -ld /tmp
+
+output:
+drwxrwxrwt 10 root root 4096 Jun  2 12:00 /tmp
+
+Note the t at the end of the permission string — it indicates the sticky bit is set.
+
+# Note the t at the end of the permission string — it indicates the sticky bit is set::::::::::::::
+
+ Set Sticky Bit:
+chmod +t /directoryname
+
+Remove Sticky Bit:
+chmod -t /directoryname
+
+## Example :::::::::
+1. Create a shared folder:
+mkdir /shared
+chmod 777 /shared
+
+Without sticky bit:
+Any user can delete anyone's files.
+
+2. Enable sticky bit:
+chmod +t /shared
+
+Users can only delete their own files in /shared.
+
+# Check Sticky Bit Status
+ls -ld /shared
+drwxrwxrwt 2 root root 4096 Jun  2 12:30 /shared
+
+# summary:::::::::::::
+
+| Feature    | Sticky Bit                                  |
+| ---------- | ------------------------------------------- |
+| Applies to | Directories only                            |
+| Purpose    | Restricts deletion of others’ files         |
+| Symbol     | `t` in the execute bit (e.g., `drwxrwxrwt`) |
+| Used in    | `/tmp`, shared folders                      |
+
+# Difference between chattr and stickybit::::::::::::
+
+1. Sticky Bit (Permission-based)
+
+Used only on directories.
+Prevents non-owners from deleting or renaming files inside that directory.
+Example:
+chmod +t /sharedfolder
+
+Use Case:
+Shared directories like /tmp, /public, etc.
+
+Behavior:
+Affects who can delete files within a directory.
+
+2. chattr (Attribute-based)
+Sets immutable or append-only attributes on files and directories.
+Even root can’t modify or delete a file if it's immutable.
+ Example:
+chattr +i important.txt   # Make the file immutable
+
+Attempt to delete:
+rm important.txt
+# Error: Operation not permitted
+
+Use Case:
+Protecting critical system files.
+Preventing accidental deletion or modification.
+
+Check Attributes:
+lsattr important.txt
+# Output: ----i-------- important.txt
+
+# Key Differences::::::::::;
+
+| Feature            | Sticky Bit                         | `chattr` (`+i`, `+a`, etc.)                  |
+| ------------------ | ---------------------------------- | -------------------------------------------- |
+| Applies To         | Directories only                   | Files **and** directories                    |
+| Purpose            | Prevent others from deleting files | Prevent any changes (modification, deletion) |
+| Who Can Modify     | Root or owner can delete files     | Even root **cannot** delete if `+i` is set   |
+| Common Use Case    | Shared folders (e.g., `/tmp`)      | Critical files (e.g., config, logs)          |
+| Command Used       | `chmod +t`                         | `chattr +i`, `chattr +a`, etc.               |
+| Metadata View Tool | `ls -l`                            | `lsattr`                                     |
+
