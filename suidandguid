@@ -1,0 +1,51 @@
+# What is SUID and SGID ::::::::::::::::::::
+
+SUID (Set User ID) and SGID (Set Group ID) are special permission bits that allow users to execute a file with the permissions of the file’s owner or group, rather than the permissions of the user running it.
+
+#  1. SUID (Set User ID)
+
+When a file has the SUID permission, it runs with the privileges of the file’s owner, not the user who is executing it.
+
+Use Case:
+
+We want a user to run a program as root temporarily (e.g., to change password or execute privileged commands), without giving them full root access.
+
+Example ::::
+ls -l /usr/bin/passwd
+
+output ::::::
+-rwsr-xr-x 1 root root 54256 Jan  1 09:12 /usr/bin/passwd
+
+The s in the owner’s execute field (rws) means SUID is set.
+It allows regular users to run /usr/bin/passwd as root, so they can update their password (which modifies /etc/shadow, a root-only file).
+
+Set SUID:
+chmod u+s filename
+
+# 2. SGID (Set Group ID)
+
+For files: When executed, it runs with the permissions of the file's group.
+For directories: All new files created in that directory inherit the group of the directory, not the user’s primary group.
+
+Use Case:
+
+Shared Project Directory Example:
+
+A group of developers needs to work on files in /shared/dev.
+You set SGID on the directory so all new files inherit the dev group:
+
+chmod g+s /shared/dev
+
+Example::
+ls -l filename
+-rwxr-sr-x 1 user devgroup 12345 Jan 1 10:00 some_script
+
+The s in the group permission means SGID is set.
+
+Set SGID:
+chmod g+s filename_or_directory
+
+How to Remove Them:::::::::;;;;
+
+Remove SUID: chmod u-s filename
+Remove SGID: chmod g-s filename
