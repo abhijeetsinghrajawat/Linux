@@ -1,0 +1,68 @@
+# What is Firewall management::::::::::::::::
+
+Firewall management is the process of configuring and maintaining a firewall to control incoming and outgoing network traffic based on security rules.
+
+# what is firewall ::::::::::::::::::::::
+
+A firewall is a system that:
+
+🛑 Blocks or allows traffic based on predefined rules.
+🔍 Inspects packets and decides whether to forward, drop, or reject them.
+🚪 Protects ports, protocols, and services from unauthorized access.
+
+# Linux Firewall Tools:::::::::::::
+
+| Tool          | Description                                                         |
+| ------------- | ------------------------------------------------------------------- |
+| **iptables**  | Legacy, low-level tool to define firewall rules                     |
+| **nftables**  | Modern replacement for iptables (since kernel 3.13)                 |
+| **firewalld** | High-level service using `iptables/nftables` (dynamic, easy-to-use) |
+| **ufw**       | Simplified front-end for `iptables` (mainly on Ubuntu)              |
+
+# Common Linux Firewall Tools in Action::::::::::::::
+
+1. 🧱 firewalld
+Start/Stop/Enable:
+
+sudo systemctl start firewalld
+sudo systemctl enable firewalld
+sudo systemctl status firewalld
+
+Check default zone:
+firewall-cmd --get-default-zone
+
+Allow a service (e.g. HTTP):
+firewall-cmd --add-service=http --permanent
+firewall-cmd --reload
+
+Block a port:
+firewall-cmd --remove-port=8080/tcp --permanent
+firewall-cmd --reload
+
+List all rules:
+firewall-cmd --list-all
+
+2. 🔗 iptables (low-level)
+Allow SSH:
+sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+
+Block IP:
+sudo iptables -A INPUT -s 192.168.1.100 -j DROP
+
+Save rules:
+sudo iptables-save > /etc/iptables/rules.v4
+
+3. 🚦 UFW (Uncomplicated Firewall – Ubuntu)
+Enable firewall:
+sudo ufw enable
+
+Allow ports:
+sudo ufw allow 22
+sudo ufw LLOW 80/tcp
+
+Deny traffic:
+sudo ufw deny 23
+
+Check status:
+sudo ufw status
+
