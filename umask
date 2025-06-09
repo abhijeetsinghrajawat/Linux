@@ -1,0 +1,56 @@
+# What is umask:::::::::::::::::::::
+
+umask (User File-Creation Mask) is a default permission mask that determines what permissions are not set on new files and 
+directories when they are created.
+
+# Why We Use umask::::::::::::::;
+
+When a user creates a file or directory:
+
+Linux applies default permissions (666 for files, 777 for directories)
+Then umask subtracts permission bits from the default
+This determines the final permissions
+
+# How umask Works::::::::::::;;;;;;;
+
+Default permissions:
+Files: 666 (rw-rw-rw-) – no execute by default
+Directories: 777 (rwxrwxrwx)
+Final permissions = Default permissions - umask
+
+# example ::::::::::::::::
+
+Example:
+If umask = 022, then:
+For files: 666 - 022 = 644 → rw-r--r--
+For directories: 777 - 022 = 755 → rwxr-xr-x
+So the new file will be readable by everyone, but only writable by the owner.
+
+# How to Check and Set umask:::::::::::::::::::::;
+
+View current umask:
+umask
+
+Temporarily change umask:
+umask 027
+
+Permanently change umask:
+Add to:
+~/.bashrc (user-level)
+/etc/profile or /etc/bash.bashrc (system-wide)
+umask 027
+
+# Where We Use It:::::::::::
+
+In multi-user environments to restrict access to newly created files
+For security hardening (e.g., restrict group/world write access)
+In scripts to control file creation behavior
+
+# Common umask Values::::::::::::::::
+
+| umask | File Permission | Directory Permission | Meaning                         |
+| ----- | --------------- | -------------------- | ------------------------------- |
+| 022   | 644             | 755                  | Owner can write, others read    |
+| 027   | 640             | 750                  | Group limited, others no access |
+| 077   | 600             | 700                  | Only owner has full access      |
+
