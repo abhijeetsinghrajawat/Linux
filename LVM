@@ -3,6 +3,16 @@
 LVM (Logical Volume Manager) is a flexible and advanced disk management system used in Linux that allows you to create, 
 resize, and manage disk partitions dynamically without unmounting or rebooting your system.
 
+# How we add new space:::::::::::::::
+
+1. install a new Hard Disk drive
+2. Make a partition to use it
+3. Designate physical volume (PV)
+4. Manage Volume group(VG)
+5. Manage Logical Volume(LV)
+6. Apply a filesystem
+7. Set a mount point
+
 # Why We Use LVM::::::::::::::;
 
 | Need                          | How LVM Helps                           |
@@ -58,9 +68,15 @@ mount /dev/myvg/mylv /mnt
 
 # Resize Volume (Live Example)::::::::::::::::::
 
-To extend a volume by 2GB:
+# To extend a volume by 2GB:
 lvextend -L +2G /dev/myvg/mylv
+
+# make new space available for filesystem
+# for ext4
 resize2fs /dev/myvg/mylv
+
+# for XFS
+xfs_growfs /dev/myvg/mylv
 
 # Diagram (Conceptual)
 
