@@ -47,7 +47,7 @@ resize, and manage disk partitions dynamically without unmounting or rebooting y
 🔧 Production servers (dynamic storage needs)
 💾 Databases (resize storage without downtime)
 🛠️ Dev/Test environments (snapshots and rollbacks)
-📦 Backup solutions (snapshots for consistent backups)
+📦 Backup solu/dev/sdb1tions (snapshots for consistent backups)
 
 # Basic Workflow of LVM:::::::::::::::::::::
 
@@ -67,6 +67,9 @@ mkfs.ext4 /dev/myvg/mylv
 mount /dev/myvg/mylv /mnt
 
 # Resize Volume (Live Example)::::::::::::::::::
+
+# extend volume group
+vgextend myvg /dev/sdb1
 
 # To extend a volume by 2GB:
 lvextend -L +2G /dev/myvg/mylv
