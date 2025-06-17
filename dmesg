@@ -1,0 +1,61 @@
+# What is dmesg::::::::::::::::::
+
+dmesg stands for display message. It is a command-line tool 
+used to view messages from the kernel ring buffer — mainly 
+related to hardware, device drivers, boot process, and system 
+diagnostics.
+
+# Purpose of dmesg:::::::::::
+
+Troubleshoot hardware issues (disks, RAM, USB devices)
+Monitor kernel messages
+Analyze boot process logs
+Debug device driver issues
+Check for kernel panics or errors
+
+# Source of dmesg Logs::::::
+
+These messages are not traditional log files but are stored 
+in kernel ring buffer (in memory). Some of this data is also 
+logged in /var/log/dmesg, depending on your distro.
+
+# Common dmesg Uses
+
+| Command    | Description                                  |                                            |
+| ---------- | -------------------------------------------- | ------------------------------------------ |
+| `dmesg`    | View all kernel messages                     |                                            |
+| \`dmesg    | less\`                                       | Scroll through messages with `less` viewer |
+| `dmesg -T` | Show human-readable timestamps               |                                            |
+| \`dmesg    | grep usb\`                                   | Filter for USB-related kernel events       |
+| \`dmesg    | grep error\`                                 | Find hardware or driver errors             |
+| `dmesg -H` | Interactive output (Ubuntu/Debian)           |                                            |
+| `dmesg -w` | Live stream new kernel messages (watch mode) |                                            |
+
+# What We Can Diagnose Using dmesg:::::::::::::::
+
+| Issue                 | Detected With dmesg?     |
+| --------------------- | ------------------------ |
+| USB not detected      | ✅ Yes                    |
+| Disk read errors      | ✅ Yes                    |
+| Network card failures | ✅ Yes                    |
+| Boot errors           | ✅ Yes                    |
+| Software bugs         | ❌ No (kernel-level only) |
+
+#Who Can Run It?::::::::::
+
+Regular users can run dmesg, but some messages (especially 
+related to secure boot or kernel crashes) may be restricted. 
+Use with sudo to get full output:
+
+sudo dmesg
+
+# Summary::::::::::::::;
+
+| Feature   | Detail                                  |
+| --------- | --------------------------------------- |
+| Tool Name | `dmesg`                                 |
+| Purpose   | View kernel logs (boot, hardware, etc.) |
+| Location  | Kernel ring buffer                      |
+| Use Cases | Troubleshoot boot/device/driver issues  |
+| Privilege | Some parts may require `sudo`           |
+

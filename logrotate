@@ -1,0 +1,82 @@
+# What is logrotate::::::::::::::;;;;
+
+logrotate is a system utility that automatically manages log 
+files: it rotates, compresses, deletes, and mails system logs 
+to prevent them from filling up disk space.
+
+# Why We Use logrotate:::::::::::::::;
+
+| Purpose                     | Description                                                     |
+| --------------------------- | --------------------------------------------------------------- |
+| ✅ Prevent disk from filling | Log files can grow very large over time (especially on servers) |
+| 🧹 Automate cleanup         | Automatically remove old logs after a period                    |
+| 📦 Compression              | Compress old logs to save disk space                            |
+| 📁 Organized logs           | Rotated logs use timestamped or numbered filenames              |
+| 📬 Email alerts             | Can notify admins about large logs or issues                    |
+
+# Where We Use logrotate:::::::::::::;;;;
+
+It’s used on any system with log-generating services, such as:
+Web servers (Apache, Nginx)
+Databases (MySQL, PostgreSQL)
+Application servers (Tomcat, Node.js)
+System logs (/var/log/syslog, /var/log/auth.log)
+
+# How logrotate Works:::::::::::::::
+
+Every day (usually via a cron job), logrotate:
+Checks which logs to manage (based on config).
+Rotates the current log file (renames it with .1, .2, etc.).
+Optionally compresses it (.gz).
+Deletes old logs beyond a configured limit.
+Creates a new empty log file.
+
+# Configuration Files::::::::::::::
+
+| File                  | Purpose                                         |
+| --------------------- | ----------------------------------------------- |
+| `/etc/logrotate.conf` | Global config file                              |
+| `/etc/logrotate.d/`   | Per-service config files (e.g., apache2, mysql) |
+
+
+# Sample Config (/etc/logrotate.d/nginx)
+
+/var/log/nginx/*.log {
+    daily
+    missingok
+    rotate 7
+    compress
+    delaycompress
+    notifempty
+    create 0640 www-data adm
+    sharedscripts
+    postrotate
+        systemctl reload nginx > /dev/null 2>/dev/null || true
+    endscript
+}
+
+What this means:
+Rotate daily
+Keep last 7 logs
+Compress older logs
+Don’t rotate if file is empty
+Reload nginx after rotating
+
+
+# Run logrotate manually:::;;
+
+sudo logrotate /etc/logrotate.conf
+
+Test with verbose/debug mode:
+sudo logrotate -d /etc/logrotate.conf
+
+# Summary:
+
+| Feature       | Description                                                     |
+| ------------- | --------------------------------------------------------------- |
+| Tool          | `logrotate`                                                     |
+| Main Use      | Manage growing log files automatically                          |
+| Benefits      | Prevents full disks, compresses logs, rotates cleanly           |
+| Configuration | Global: `/etc/logrotate.conf` <br> Service: `/etc/logrotate.d/` |
+| Use Cases     | Web, database, system logs on production servers                |
+
