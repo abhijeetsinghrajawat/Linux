@@ -1,0 +1,98 @@
+# What is selinux::::::::::::::::
+
+It is security-enhanced linux. 
+It is a linux kernel security module
+Provides additional layer of Access Control and Mandatory Access Control (MAC) to enhance the security.
+It prevents unauthorised access.
+Limiting the impact of vulnerabilities.
+A project of US NSA with SElinux community.
+
+# SELinux Modes::::::::::::::::
+
+| Mode           | Description                                                                 |
+| -------------- | --------------------------------------------------------------------------- |
+| **Enforcing**  | SELinux is active and enforcing policies (blocks unauthorized actions)      |
+| **Permissive** | SELinux logs policy violations but does not block them (used for debugging) |
+| **Disabled**   | SELinux is completely turned off                                            |
+
+# We can check current mode with:
+getenforce
+
+# how to change SELinux setting::::::::::
+
+setenforce 0 = Permissive/Disable
+setenforce 1 = Enable
+
+#Note: It is not for permanent change while terminal is rinng it is working after that it will close.
+# Change SELinux setting permanent::::::::::::::::
+
+/etc/selinux/config
+SELINUX = enforcing/disabled/permissive
+
+# Create a file before rebooting::::::::::::::::
+
+fixfiles -F onboot
+/.autorelable
+
+to prevent incorrectly labled and unlabled files from causing 
+problems, SELinux automatically relables file systems when 
+changing from the disabled stste to permissive or enforcing mode.
+
+Before rebooting the system for relabling, make sure the 
+system will boot in permissive mode, for example by using 
+the enforcing=0 kernel option.
+
+# two main concept of SELinux
+
+1. Labeling
+2. Type enforcement
+ 
+# labeling
+
+Labeling in SELinux refers to the process of assigning security 
+contexts (labels) to files, processes, ports, and devices so SELinux 
+knows how to apply security policies to them.
+
+Each label defines what kind of access a subject (like a process) can have to an object (like a file).
+
+Without correct labels, SELinux may deny access even if standard file permissions (like chmod) allow it.
+Labels are at the core of SELinux's Mandatory Access Control (MAC) system.
+
+# SELinux Label Format
+system_u:object_r:httpd_sys_content_t:s0
+
+| Field                 | Description                                           |
+| --------------------- | ----------------------------------------------------- |
+| `system_u`            | SELinux user                                          |
+| `object_r`            | Role                                                  |
+| `httpd_sys_content_t` | **Type** (most important – defines access rules)      |
+| `s0`                  | Sensitivity level (MLS/MCS – often unused by default) |
+
+To check the lables of a file or a directory
+ls -lz
+
+To check the lable of a process (ex:httpd)
+ps axz | grep httpd
+
+To check the lable of a socket (ex:httpd)
+netstat -taZ | grep httpd
+
+Checking errors related to SELinux
+journalctl
+
+Change type in a label
+chcon -t <type> filename
+
+Where the context stored??
+etc/selinux/targated/contexts/files/files_contexts 
+
+# Boolean
+
+Just by setting some pre-defined properties to either ON or OFF.
+EX: FTP server to access home dir
+
+To check Boolean
+getscbool -a
+semanage boolean -l
+
+
