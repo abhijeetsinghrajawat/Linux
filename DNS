@@ -1,0 +1,78 @@
+# What is DNS::::::::;
+
+DNS is the "phonebook of the internet" — it translates human-readable domain names like www.google.com into IP addresses like 142.250.183.132 that computers 
+use to locate each other on networks.
+
+# Why we use:::::::::::::
+
+Computers use IP addresses to communicate
+DNS handles the translation automatically
+Without DNS, you'd have to type IP addresses manually to access websites
+
+# Where We Use DNS:::::::::::::
+
+| Context                | DNS Usage Example                               |
+| ---------------------- | ----------------------------------------------- |
+| 🧑‍💻 Browsing the web | `google.com` → `142.250.183.132`                |
+| 📡 Connecting to APIs  | `api.example.com` → Backend server IP           |
+| 📧 Email delivery      | MX records route emails to correct mail servers |
+| 🏢 Internal networks   | Hostnames mapped to internal private IPs        |
+
+# DNS Records Types
+
+| Record Type | Purpose                           | Example                          |
+| ----------- | --------------------------------- | -------------------------------- |
+| **A**       | IPv4 address                      | `example.com → 192.168.1.10`     |
+| **AAAA**    | IPv6 address                      | `example.com → ::1`              |
+| **CNAME**   | Alias/Canonical name              | `www → example.com`              |
+| **MX**      | Mail Exchange                     | `gmail.com → mail.gmail.com`     |
+| **NS**      | Name server delegation            | `example.com → ns1.example.com`  |
+| **PTR**     | Reverse DNS (IP → hostname)       | `192.168.1.10 → example.com`     |
+| **TXT**     | Text info (SPF, DKIM, validation) | `v=spf1 include:_spf.google.com` |
+
+# Common DNS Commands in Linux::::::::::::
+
+| Command                | Description                           |
+| ---------------------- | ------------------------------------- |
+| `nslookup example.com` | Basic DNS query                       |
+| `dig example.com`      | Detailed DNS lookup                   |
+| `host example.com`     | Simple DNS lookup                     |
+| `ping example.com`     | Checks if DNS resolves + connectivity |
+| `cat /etc/resolv.conf` | Shows DNS servers being used          |
+
+# Detailed DNS Flow:::::::::::::::::::
+
+# 1. User initiates a request
+You enter www.google.com in a browser or run:
+ping www.google.com
+
+# 2. Linux checks local /etc/hosts
+File: /etc/hosts
+If entry is found, it uses that IP directly.
+cat /etc/hosts
+127.0.0.1   localhost
+192.168.0.50 myapp.local
+
+#3. Linux checks local DNS cache
+If systemd-resolved is used, it checks local DNS cache:
+systemd-resolve --statistics
+resolvectl query google.com
+
+#4. Linux sends request to configured DNS server 
+Defined in /etc/resolv.conf or systemd settings
+cat /etc/resolv.conf
+nameserver 8.8.8.8
+This DNS server is often from your router, ISP, or public DNS like Google (8.8.8.8) or Cloudflare (1.1.1.1).
+
+#5. Recursive DNS Resolver begins resolution
+If not cached, the resolver:
+Queries Root DNS Server → returns TLD server for .com
+Queries TLD Server (.com) → returns authoritative server for google.com
+Queries Authoritative Server → returns final IP (A/AAAA record)
+
+#6. DNS Response is returned
+IP address of www.google.com is returned.
+Linux system stores the result in cache for a while (TTL – Time to Live).
+
+#7. Application uses resolved IP
+Now the browser or app makes a connection to that IP.
