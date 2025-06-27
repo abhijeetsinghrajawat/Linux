@@ -1,3 +1,25 @@
+# D-Bus
+
+D-Bus, short for "Desktop Bus," is a message-oriented middleware system that enables 
+communication between different processes on a Linux system.
+
+Key Features and Concepts:
+Inter-Process Communication (IPC)
+Message Bus
+System and Session Buses
+Remote Procedure Calls (RPC) and Signals
+Security
+Layered Architecture
+Ubiquity
+
+In essence, D-Bus allows applications to:
+Share data and events: For example, an application can send a notification to 
+the desktop environment when a new email arrives. 
+Control other applications: A media player might use D-Bus to control the volume 
+of an audio output device. 
+Integrate with system services: NetworkManager, for example, uses D-Bus to manage 
+network connections. 
+
 # Ping
 
 ping is a network diagnostic tool used to test the reachability of a host (IP address or domain) on an IP network and measure the round-trip time for messages sent from the origin to the destination.
@@ -62,5 +84,11 @@ Checking route changes during outages
 Verifying ISP routing behavior
 
 Ex - traceroute google.com
+
+# nslookup
+
+nslookup is a command-line tool used to query Domain Name System (DNS) servers to 
+retrieve information about domain names, IP addresses, and other DNS records.
+Example: nslookup www.google.com
 
 

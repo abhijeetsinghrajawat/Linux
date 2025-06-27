@@ -76,3 +76,9 @@ Linux system stores the result in cache for a while (TTL – Time to Live).
 
 #7. Application uses resolved IP
 Now the browser or app makes a connection to that IP.
+
+# What is netplan
+
+Ubuntu uses Netplan, a tool that provides a consistent way to configure networking. DNS settings are configured 
+within Netplan configuration files. 
+Location: /etc/netplan/
